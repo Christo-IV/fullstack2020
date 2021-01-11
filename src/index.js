@@ -1,5 +1,5 @@
 //----------------//
-//     Ex 1.7     //
+//     Ex 1.8     //
 //----------------//
 
 import React, { useState } from 'react'
@@ -19,7 +19,7 @@ const Button = ({text, type, setType}) => {
 }
 
 // using <br> here to make sure that all changes I make to the code are only in this file
-const Stat = ({text, value}) => <>{text}: {value} <br></br></>
+const Statistics = ({text, value}) => <>{text}: {value} <br></br></>
 
 const App = () => {
   // save clicks of each button to its own state
@@ -39,12 +39,12 @@ const App = () => {
       </section>
       <section>
         <h2>Statistics</h2>
-        <Stat text="Good" value={good} />
-        <Stat text="Neutral" value={neutral} />
-        <Stat text="Bad" value={bad} />
-        <Stat text="All" value={total} />
-        <Stat text="Average" value={(good - bad) / total} />
-        <Stat text="Positive" value={good / total} />
+        <Statistics text="Good" value={good} />
+        <Statistics text="Neutral" value={neutral} />
+        <Statistics text="Bad" value={bad} />
+        <Statistics text="All" value={total} />
+        <Statistics text="Average" value={(good - bad) / total} />
+        <Statistics text="Positive" value={good / total} />
       </section>
     </div>
   )
