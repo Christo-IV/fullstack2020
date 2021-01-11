@@ -1,5 +1,5 @@
 //----------------//
-//     Ex 1.8     //
+//     Ex 1.9     //
 //----------------//
 
 import React, { useState } from 'react'
@@ -31,21 +31,22 @@ const App = () => {
 
   return (
     <div>
-      <section>
-        <h1>Give Feedback</h1>
-        <Button text="good" type={good} setType={setGood}/>
-        <Button text="neutral" type={neutral} setType={setNeutral}/>
-        <Button text="bad" type={bad} setType={setBad}/>
-      </section>
-      <section>
-        <h2>Statistics</h2>
-        <Statistics text="Good" value={good} />
-        <Statistics text="Neutral" value={neutral} />
-        <Statistics text="Bad" value={bad} />
-        <Statistics text="All" value={total} />
-        <Statistics text="Average" value={(good - bad) / total} />
-        <Statistics text="Positive" value={good / total} />
-      </section>
+      <h1>Give Feedback</h1>
+      <Button text="good" type={good} setType={setGood}/>
+      <Button text="neutral" type={neutral} setType={setNeutral}/>
+      <Button text="bad" type={bad} setType={setBad}/>
+      
+      <h2>Statistics</h2>
+      {total === 0 ? <>No feedback given</> : 
+        <>
+          <Statistics text="Good" value={good} />
+          <Statistics text="Neutral" value={neutral} />
+          <Statistics text="Bad" value={bad} />
+          <Statistics text="All" value={total} />
+          <Statistics text="Average" value={(good - bad) / total} />
+          <Statistics text="Positive" value={good / total} />
+        </>
+      }
     </div>
   )
 }
