@@ -1,5 +1,5 @@
 //----------------//
-//     Ex 1.9     //
+// Ex 1.10 - 1.11 //
 //----------------//
 
 import React, { useState } from 'react'
@@ -18,8 +18,30 @@ const Button = ({text, type, setType}) => {
   )
 }
 
-// using <br> here to make sure that all changes I make to the code are only in this file
-const Statistics = ({text, value}) => <>{text}: {value} <br></br></>
+const Statistics = ({good, neutral, bad, total}) => {
+  return (
+    <table>
+      <tbody>
+        <Stat text="Good" value={good} />
+        <Stat text="Neutral" value={neutral} />
+        <Stat text="Bad" value={bad} />
+        <Stat text="All" value={total} />
+        <Stat text="Average" value={(good - bad) / total} />
+        <Stat text="Positive" value={good / total * 100 + " %"} />
+      </tbody>
+    </table>
+  )
+}
+
+// I named this "Stat" instead of "Statistic" to help tell the difference between this and it's parent component
+const Stat = ({text, value}) => {
+  return (
+    <tr>
+      <td>{text}</td> 
+      <td>{value}</td>
+    </tr> 
+  )
+}
 
 const App = () => {
   // save clicks of each button to its own state
@@ -37,16 +59,9 @@ const App = () => {
       <Button text="bad" type={bad} setType={setBad}/>
       
       <h2>Statistics</h2>
-      {total === 0 ? <>No feedback given</> : 
-        <>
-          <Statistics text="Good" value={good} />
-          <Statistics text="Neutral" value={neutral} />
-          <Statistics text="Bad" value={bad} />
-          <Statistics text="All" value={total} />
-          <Statistics text="Average" value={(good - bad) / total} />
-          <Statistics text="Positive" value={good / total} />
-        </>
-      }
+      {total === 0 ? 
+      <>No feedback given</> : 
+      <Statistics good={good} neutral={neutral} bad={bad} total={total} />}
     </div>
   )
 }
