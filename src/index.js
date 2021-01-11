@@ -1,67 +1,62 @@
-import React, { useState } from 'react'
+// ---------------//
+//     Ex 1.3     //
+// ---------------//
+
+import React from 'react'
 import ReactDOM from 'react-dom'
 
-const Button = ({text, type, setType}) => {
-  
-  const handleClick = () => {
-    setType(type + 1);
-  }
-
+const Header = (props) => {
   return (
-    <button onClick={handleClick}>
-      {text}
-    </button>
+    <h1>{props.course}</h1>
   )
 }
 
-const Statistics = ({good, neutral, bad, total}) => {
+const Part = (props) => {
   return (
-    <table>
-      <tbody>
-        <Stat text="Good" value={good} />
-        <Stat text="Neutral" value={neutral} />
-        <Stat text="Bad" value={bad} />
-        <Stat text="All" value={total} />
-        <Stat text="Average" value={(good - bad) / total} />
-        <Stat text="Positive" value={good / total * 100 + " %"} />
-      </tbody>
-    </table>
+    <p>
+      {props.part.name}: {props.part.exercises}
+    </p>
   )
 }
 
-// I named this "Stat" instead of "Statistic" to help tell the difference between this and it's parent component
-const Stat = ({text, value}) => {
-  return (
-    <tr>
-      <td>{text}</td> 
-      <td>{value}</td>
-    </tr> 
-  )
-}
-
-const App = () => {
-  // save clicks of each button to its own state
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
-  
-  const total = good + neutral + bad;
-
+const Content = (props) => {
   return (
     <div>
-      <h1>Give Feedback</h1>
-      <Button text="good" type={good} setType={setGood}/>
-      <Button text="neutral" type={neutral} setType={setNeutral}/>
-      <Button text="bad" type={bad} setType={setBad}/>
-      
-      <h2>Statistics</h2>
-      {total === 0 ? 
-      <>No feedback given</> : 
-      <Statistics good={good} neutral={neutral} bad={bad} total={total} />}
+      <Part part={props.part1}/>
+      <Part part={props.part2}/>
+      <Part part={props.part3}/>
     </div>
   )
 }
 
-ReactDOM.render(<App />, 
-  document.getElementById('root')
-)
+const Total = (props) => {
+  return (
+    <p>Number of exercises {props.total}</p>
+  )
+}
+
+const App = () => {
+  const course = 'Half Stack application development'
+  const part1 = {
+    name: 'Fundamentals of React',
+    exercises: 10
+  }
+  const part2 = {
+    name: 'Using props to pass data',
+    exercises: 7
+  }
+  const part3 = {
+    name: 'State of a component',
+    exercises: 14
+  }
+
+  return (
+    <div>
+      <Header course={course}/>
+      <Content part1={part1} part2={part2} part3={part3} />
+      <Total total={part1.exercises + part2.exercises + part3.exercises}/>
+    </div>
+  )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'))
